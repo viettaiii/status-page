@@ -1,0 +1,142 @@
+
+/* HOME PAGE */
+/* Header */
+.header {
+    height: 110px;
+}
+
+.header__logo {
+    width: 110px;
+    height: 110px;
+}
+
+.header__status {
+    text-transform: uppercase;
+}
+
+.header__btn {
+    background-color: #6750A4!important;
+    border-radius: 60px!important;
+    border-color:  #6750A4!important;
+}
+
+.header__vertical-line {
+    border-left: 1px solid black; /* Đường gạch đứng */
+    height: 100px; /* Chiều cao của đường gạch */
+    width: 2px;
+    margin: 0px 24px;
+    opacity: 0.5;
+}
+
+/* Alert */
+.alert-custom {
+    margin: 36px 0px;
+    background-color: #E4F8F6!important;
+    
+   
+}
+
+.alert-custom span {
+    color:black!important;
+}
+.alert-custom span:nth-child(2) {
+    font-size: 14px;
+    opacity: 0.6;
+}
+.alert-custom span {
+    color:black!important;
+}
+
+
+/* About this-site */
+
+.about-this-site {
+
+}
+
+.about-this-site__title {
+    font-size: 22px;
+}
+
+.about-this-site__content {
+    opacity: 0.8;
+    font-size: 14px;
+}
+
+/* List items */
+
+.items {
+
+}
+
+.items__item {
+
+}
+
+/* Default item */
+.items__item__default__notice {
+    font-weight: bold;
+}
+
+.items__item__default__log {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+.items__item__default__log ul li {
+    font-size: 12px;
+    opacity: 1!important;
+    font-weight: 400;
+}
+
+
+/* operational item */
+.items__item__operational__icon {
+    color: green;
+}
+
+
+/* maintenance item */
+.items__item__maintenance__icon {
+    color: orange;
+}
+
+
+/* maintenance item */
+.items__item__degrated__icon {
+    color: orange;
+}
+/* partial outage item */
+.items__item__partial-outage__icon {
+    color: red;
+}
+
+
+
+
+
+
+/* Btn custom */
+.btn-operational {
+    color:green!important;
+    width: 120px;
+    font-size: 14px!important;
+
+}
+.btn-maintenance {
+    color:orange!important;
+    width: 120px;
+    font-size: 14px!important;
+
+}
+.btn-degrated {
+    color:orange!important;
+    width: 120px;
+    font-size: 14px!important;
+
+}
+.btn-partial-outage {
+    color:red!important;
+    width: 120px;
+    font-size: 14px!important;
+}
