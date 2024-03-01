@@ -8,4 +8,5 @@ urlpatterns = [
     path('history/', views.history, name='history'),
     path('detail/', views.detail, name='detail'),
     path('management/', views.component_list, name='management'),
+    path('component/create/', views.component_create, name='component_create'),
 ]

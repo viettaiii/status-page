@@ -1,214 +1,286 @@
-
 {% extends 'base.html' %}
-{% block header %}
-{% endblock header %}
+{% comment %}  {% endcomment %}
+{% block header %} {% endblock header %} 
+{% comment %}  {% endcomment %}
 {% block body %}
 
+<!-- Navbar -->
+<!-- As a link -->
+<nav class="navbar container-fluid bg-secondary">
+  <div class="container d-flex justify-content-between w-100">
+    <a class="navbar-brand d-block text-white" href="#">Leadplus</a>
+    <a class="navbar-brand d-block text-white" href="#">Logout</a>
+  </div>
+</nav>
 
-  <!-- Navbar -->
-    <!-- As a link -->
-    <nav class="navbar container-fluid bg-secondary">
-      <div class="container d-flex justify-content-between w-100">
-        <a class="navbar-brand d-block text-white" href="#">Leadplus</a>
-        <a class="navbar-brand d-block text-white" href="#">Logout</a>
+<div class="container mt-5">
+  <div class="management">
+    <!-- Box actions -->
+    <div class="card">
+      <div class="card-body d-flex justify-content-end gap-2">
+        <button
+          class="btn btn-danger management__btn-add"
+          onclick="showModal('create-component-modal')"
+        >
+          Add
+        </button>
+        <button class="btn btn-danger">Request</button>
       </div>
-    </nav>
+    </div>
 
-    <div class="container mt-5">
-      <div class="management">
-        <!-- Box actions -->
-        <div class="card">
-          <div class="card-body d-flex justify-content-end gap-2">
-            <button
-              class="btn btn-danger management__btn-add"
-              onclick="showModal('create-component-modal')"
-            >
-              Add
-            </button>
-            <button class="btn btn-danger">Request</button>
-          </div>
-        </div>
-
-        <!-- Table Components -->
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#ID</th>
-              <th scope="col">Title</th>
-              <th scope="col">Status</th>
-              <th scope="col">Created at</th>
-              <th scope="col">Updated at</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">#1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>Otto</td>
-              <td>Otto</td>
-              <td>
-                <div class="dropdown">
-                  <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
+    <!-- Table Components -->
+    <table class="table" id='table-component'>
+      <thead>
+        <tr>
+          <th scope="col">#ID</th>
+          <th scope="col">Title</th>
+          <th scope="col">Status</th>
+          <th scope="col">Created at</th>
+          <th scope="col">Updated at</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for component in components%}
+        <tr>
+          <th scope="row">#{{component.id}}</th>
+          <td>{{component.title}}</td>
+          <td>{{component.status}}</td>
+          <td>{{component.created_at}}</td>
+          <td>{{component.updated_at}}</td>
+          <td>
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    onclick="showModal('update-post-modal')"
+                    >Edit</a
                   >
-                    Actions
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a
-                        class="dropdown-item"
-                        onclick="showModal('update-post-modal')"
-                        >Edit</a
-                      >
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">Delete</a>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="d-flex justify-content-end">
-          <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <!-- Modal Create Post-->
-        <div class="modal" id="create-component-modal" tabindex="-1">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Create Post</h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <!-- Modal body content goes here -->
-                <form id='create-component'>
-                  {% csrf_token %}
-                  <div class="mb-3 row">
-                    <label for="title" class="col-sm-2 col-form-label"
-                      >Title</label
-                    >
-                    <div class="col-sm-10">
-                      <input
-                        type="text"
-                        name='title'
-                        class="form-control"
-                        id="title"
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3 row">
-                    <label for="status" class="col-sm-2 col-form-label"
-                      >Status</label
-                    >
-                    <div class="col-sm-10">
-                      <select class="form-select" name='status' aria-label="Default select example">
-                        <option selected name='status' value='Operational'>Operational</option>
-                        <option name='status' value="Maintenance">Maintenance</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="d-flex justify-content-end gap-2">
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button type="submit" class="btn btn-primary">Create</button>
-                  </div>
-                </form>
-              </div>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Delete</a>
+                </li>
+              </ul>
             </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- Modal Create Post-->
+    <div class="modal" id="create-component-modal"  tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Create Post</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
-        </div>
-        <!-- Modal Update Post-->
-        <div class="modal" id="update-post-modal" tabindex="-1">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Update Post</h5>
+          <div class="modal-body">
+            <!-- Modal body content goes here -->
+            <form id="create-component">
+              {% csrf_token %}
+              <div class="mb-3 row">
+                <label for="title" class="col-sm-2 col-form-label">Title</label>
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    id="title"
+                  />
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="status" class="col-sm-2 col-form-label"
+                  >Status</label
+                >
+                <div class="col-sm-10">
+                  <select
+                    class="form-select"
+                    name="status"
+                    aria-label="Default select example"
+                  >
+                    <option selected name="status" value="Operational">
+                      Operational
+                    </option>
+                    <option name="status" value="Maintenance">
+                      Maintenance
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end gap-2">
                 <button
                   type="button"
-                  class="btn-close"
+                  class="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">Create</button>
               </div>
-              <div class="modal-body">
-                <!-- Modal body content goes here -->
-                <form>
-                  <div class="mb-3 row">
-                    <label for="field-1" class="col-sm-2 col-form-label"
-                      >Field 1</label
-                    >
-                    <div class="col-sm-10">
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="field-1"
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3 row">
-                    <label for="field-2" class="col-sm-2 col-form-label"
-                      >Field 2</label
-                    >
-                    <div class="col-sm-10">
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="field-2"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="d-flex justify-content-end gap-2">
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                      Create
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
+    <!-- Modal Update Post-->
+    <div class="modal" id="update-post-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Update Post</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- Modal body content goes here -->
+            <form>
+              <div class="mb-3 row">
+                <label for="field-1" class="col-sm-2 col-form-label"
+                  >Field 1</label
+                >
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="field-1" />
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="field-2" class="col-sm-2 col-form-label"
+                  >Field 2</label
+                >
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="field-2" />
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end gap-2">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">Create</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock body %}
+
+<!--  -->
+{% block javascript %}
+<script>
+  function showModal(element_id) {
+    var myModal = new bootstrap.Modal(document.getElementById(element_id));
+    myModal.show();
+  }
+
+  $(document).ready(function () {
+    $("#create-component").submit(function (event) {
+      // Ngăn chặn hành động mặc định của form (tải lại trang)
+      event.preventDefault();
+  
+      // Lấy dữ liệu từ biểu mẫu
+      var title = $("#title").val();
+      var status = $('select[name="status"]').val();
+  
+      // Gửi yêu cầu Ajax
+      $.ajax({
+        url: "{% url 'component_create' %}", // Thay đổi thành URL của view xử lý yêu cầu của bạn
+        method: "POST",
+        data: {
+          title: title,
+          status: status,
+        },
+        success: function (response) {
+          $("#create-component").trigger('reset');
+          var instance = JSON.parse(response["instance"]);
+          // Hiển thị modal sau khi gửi yêu cầu thành công
+          var fields = instance[0]["fields"]
+          $("#table-component tbody").prepend(
+              `<tr>
+                <th scope="row">#${fields["id"]||""}</th>
+                <td>${fields["title"]||""}</td>
+                <td>${fields["status"]||""}</td>
+                <td>${fields["created_at"]||""}</td>
+                <td>${fields["updated_at"]||""}</td>
+                <td>
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Actions
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a
+                          class="dropdown-item"
+                          onclick="showModal('update-post-modal')"
+                          >Edit</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">Delete</a>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>`
+          )
+          // showModal('create-post-modal');
+        },
+        error: function (xhr, status, error) {
+          // Xử lý lỗi (nếu có)
+          console.error(error);
+        },
+      });
+    });
+  });
+</script>
+{% endblock javascript %}
