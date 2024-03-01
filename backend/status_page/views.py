@@ -12,3 +12,7 @@ def history(request):
 
 def detail(request):
     return render(request, "detail.html")
+
+
+def management(request):
+    return render(request, "management.html")
